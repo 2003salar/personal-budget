@@ -5,7 +5,15 @@ const newEnvelope = require('./newEnvelope');
 const newId = require('./helpers')
 
 app.use(express.json());
+app.use(express.static('public'))
 
+
+// Catch-all middleware for undefined routes
+app.use((req, res, next) => {
+    res.status(404).send('Error: Page not found');
+});
+
+// Middleware to handle and send requested envelope with its ID
 app.param('envelopeId', (req, res, next, id) => {
     const envelopeId = parseInt(id);
     const envelope = envelopes.find(envelope => envelope.id === envelopeId)
@@ -17,6 +25,7 @@ app.param('envelopeId', (req, res, next, id) => {
     }
 });
 
+// Middleware to handle and send requested envelope with its ID
 app.param('fromId', (req, res, next, id) => {
     const envelopeId = parseInt(id);
     const envelope = envelopes.find(envelope => envelope.id === envelopeId)
@@ -28,6 +37,7 @@ app.param('fromId', (req, res, next, id) => {
     }
 });
 
+// Middleware to handle and send requested envelope with its ID
 app.param('toId', (req, res, next, id) => {
     const envelopeId = parseInt(id);
     const envelope = envelopes.find(envelope => envelope.id === envelopeId)
@@ -39,10 +49,12 @@ app.param('toId', (req, res, next, id) => {
     }
 });
 
+// Route to get all the envelopes
 app.get('/', (req, res) => {
     res.send(envelopes);
 });
 
+// Route to create an envelope using post request
 app.post('/envelopes', (req, res) => {
     const id = newId(envelopes);
     const budget = req.body.budget;
@@ -55,10 +67,12 @@ app.post('/envelopes', (req, res) => {
     res.status(201).send(createEnvelope);
 });
 
+// Route to get a specific envelope with its ID
 app.get('/envelope/:envelopeId', (req, res) => {
     res.send(req.envelope)
 });
 
+// Route to subtract an amount of budget from the specified envelope
 app.put('/envelope/:envelopeId/:amount', (req, res) => {
     const amount = parseInt(req.params.amount);
     const envelope = req.envelope;
@@ -70,6 +84,7 @@ app.put('/envelope/:envelopeId/:amount', (req, res) => {
     }
 });
 
+// Route to transfer an amount of budget from envelope A to envelope B
 app.post('/envelopes/transfer/:fromId/:toId', (req, res) => {
     const senderEnvelope = req.senderEnvelope;
     const receiverEnvelope = req.receiverEnvelope;
@@ -86,6 +101,7 @@ app.post('/envelopes/transfer/:fromId/:toId', (req, res) => {
     }
 });
 
+// Route to delete an envelope with a specific ID
 app.delete('/envelope/:envelopeId', (req, res) => {
     const envelopeToDelete = req.envelope;
     const index = envelopes.findIndex(envelope => envelopeToDelete.id === envelope.id)
