@@ -54,3 +54,7 @@ Before running the application, ensure you have Node.js and npm installed on you
 
 - **To delete a specific envelope:**
   - Send a DELETE request to `/envelope/:envelopeId`, where `:envelopeId` is the ID of the envelope to delete.
+
+## License
+
+This project is licensed under the MIT License.
