@@ -8,11 +8,6 @@ app.use(express.json());
 app.use(express.static('public'))
 
 
-// Catch-all middleware for undefined routes
-app.use((req, res, next) => {
-    res.status(404).send('Error: Page not found');
-});
-
 // Middleware to handle and send requested envelope with its ID
 app.param('envelopeId', (req, res, next, id) => {
     const envelopeId = parseInt(id);
