@@ -60,6 +60,6 @@ Before running the application, ensure you have Node.js and npm installed on you
 1. Ensure that your Express.js server is running.
 2. Run the following command in your terminal to execute the exported Postman collection using Newman:
    ```bash
-   newman run postman/personal-budget-1.postman_collection.json
+   npm test
    ```
 **Note:** To ensure consistency in subsequent runs, restart the Express.js server before running Newman again, as the test expects a specific number of envelopes (5) to be present in the server repository.
