@@ -68,7 +68,7 @@ app.get('/envelope/:envelopeId', (req, res) => {
 
 // Route to subtract an amount of budget from the specified envelope
 app.put('/envelope/:envelopeId/:amount', (req, res) => {
-    const amount = parseInt(req.params.amount);
+    const amount = Number(req.params.amount);
     const envelope = req.envelope;
     if (envelope.budget < amount || envelope.budget === amount) {
         res.status(400).send('Invalid amount to cut')
@@ -82,7 +82,7 @@ app.put('/envelope/:envelopeId/:amount', (req, res) => {
 app.post('/envelopes/transfer/:fromId/:toId', (req, res) => {
     const senderEnvelope = req.senderEnvelope;
     const receiverEnvelope = req.receiverEnvelope;
-    const transferAmount = Number(req.headers['transfer-amount']);
+    const transferAmount = req.body['transfer-amount'];
 
     if (!transferAmount || typeof transferAmount !== 'number' || transferAmount < 0) {
         res.status(400).json({ success: false, message: 'Invalid transation amount!' });        ;
