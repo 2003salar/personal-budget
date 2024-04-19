@@ -77,34 +77,22 @@ router.patch('/:id', async (req, res) => {
         const newBudget = await pool.query('SELECT * FROM envelopes WHERE id = $1', [req.envelope.id]);
         res.status(200).json({success: true, data: newBudget.rows[0]}); 
     } catch (error) {
-        res.status(500).json({success: false, message: 'Something went wrong'}); //line 78 
+        res.status(500).json({success: false, message: 'Something went wrong'});
     }
 });
 
 // Route to transfer an amount of budget from envelope A to envelope B
 router.post('/transfer/:fromId/:toId', (req, res) => {
-    const senderEnvelope = req.senderEnvelope;
-    const receiverEnvelope = req.receiverEnvelope;
-    const transferAmount = req.body['transfer-amount'];
-
-    if (!transferAmount || typeof transferAmount !== 'number' || transferAmount < 0) {
-        res.status(400).json({ success: false, message: 'Invalid transation amount!' });        ;
-    } else if (senderEnvelope.budget < transferAmount) {
-        res.status(400).json({ success: false, message: 'You do not have enough budget!' });
-    } else {
-        senderEnvelope.budget -= transferAmount;
-        receiverEnvelope.budget += transferAmount;
-        res.status(201).json({ success: true, message: 'Transaction was successfully made!' });
-    }
+    // return
 });
 
 // Route to delete an envelope with a specific ID
-router.delete('/:envelopeId', (req, res) => {
-    const envelopeToDelete = req.envelope;
-    const index = envelopes.findIndex(envelope => envelopeToDelete.id === envelope.id)
-    if (index !== -1) {
-        envelopes.splice(index, 1);
-        res.status(204).json({success: true, message: 'Envelope deleted successfully'});
+router.delete('/:id', async (req, res) => {
+    try {
+        await pool.query('DELETE FROM envelopes WHERE id = $1', [req.envelope.id]);
+        res.status(204).json({success: true, message: `Envelope with id ${req.envelope.id} was deleted successfully`});
+    } catch (error) {
+        res.status(500).json({success: false, message: 'Something went wrong'});
     }
 });
 
