@@ -11,13 +11,13 @@ Before running the application, ensure you have Node.js and npm installed on you
 1. **Clone the repository:**
 
     ```bash
-    git clone git clone https://github.com/2003salar/personal-budget-1.git
+    git clone git clone https://github.com/2003salar/personal-budget.git
     ```
 
 2. **Install dependencies:**
 
     ```bash
-    cd personal-budget-1
+    cd personal-budget
     npm install
     ```
 
@@ -27,7 +27,7 @@ Before running the application, ensure you have Node.js and npm installed on you
     node server.js
     ```
 
-    The server will start listening on port 3000 by default. You can access the API endpoints using a tool called Postman.
+    The server will start listening on port 3000 by default. You can access the API endpoints using a tool called Postman. 
 
 ## Endpoints
 
@@ -40,20 +40,26 @@ Before running the application, ensure you have Node.js and npm installed on you
 
 ## Usage
 
+### Path
+- Navigate to `/api/v1/envelopes` and to associated paths as mentioned bellow. 
+
+- **To get all envelopes:**
+  - Send a GET request to `/` to get all the envelopes.
+
 - **To create a new envelope:**
-  - Send a POST request to `/envelopes` with JSON payload containing `budget` and `title`.
+  - Send a POST request to `/` with JSON payload containing `budget` and `title`.
   
 - **To get details of a specific envelope:**
-  - Send a GET request to `/envelope/:envelopeId`, where `:envelopeId` is the ID of the envelope.
+  - Send a GET request to `/:id`, where `:id` is the ID of the envelope.
 
 - **To update budget of a specific envelope:**
-  - Send a PUT request to `/envelope/:envelopeId/:amount`, where `:envelopeId` is the ID of the envelope and `:amount` is the amount to subtract from the budget.
+  - Send a PATCH request to `/:id`, where `:id` is the ID of the envelope, and sending in the request body `amount` to subtract from the budget.
 
 - **To transfer budget from one envelope to another:**
-  - Send a POST request to `/envelopes/transfer/:fromId/:toId`, where `:fromId` is the ID of the sender envelope and `:toId` is the ID of the receiver envelope. Include `transfer-amount` header in the request with the amount to transfer.
+  - Send a POST request to `/transfer/:fromId/:toId`, where `:fromId` is the ID of the sender envelope and `:toId` is the ID of the receiver envelope. Include `amount` in the request body with the amount to transfer.
 
 - **To delete a specific envelope:**
-  - Send a DELETE request to `/envelope/:envelopeId`, where `:envelopeId` is the ID of the envelope to delete.
+  - Send a DELETE request to `/:id`, where `:id` is the ID of the envelope to delete.
 
 - **To test the API endpoints using Newman:**
 
@@ -62,4 +68,9 @@ Before running the application, ensure you have Node.js and npm installed on you
    ```bash
    npm test
    ```
-**Note:** To ensure consistency in subsequent runs, restart the Express.js server before running Newman again, as the test expects a specific number of envelopes (5) to be present in the server repository.
+
+## Technologies
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+
