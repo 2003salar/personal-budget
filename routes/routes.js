@@ -125,7 +125,7 @@ router.post('/transfer/:fromId/:toId', async (req, res) => {
     try {
         const { amount } = req.body;
         const amountValue = Number(amount);
-        if (isNaN(amountValue) || amountValue < 1) {
+        if (isNaN(amountValue) || amountValue <= 0) {
             res.status(400).json({success: false, message: 'Invalid amount'});
             return;
         }
@@ -133,12 +133,9 @@ router.post('/transfer/:fromId/:toId', async (req, res) => {
         const receiverId = req.receiverEnvelope.id;
         const newSenderBudget = Number(req.senderEnvelope.budget) - amountValue;
         const newReceiverBudget = Number(req.receiverEnvelope.budget) + amountValue;
-
-        console.log(senderId, newSenderBudget);
-        console.log(receiverId, newReceiverBudget);
-        // await pool.query('UPDATE envelopes SET budget = $1 WHERE id = $2;', [newSenderBudget, req.params.fromId]);
-        // await pool.query('UPDATE envelopes SET budget = $1 WHERE id = $2;', [newReceiverBudget, req.params.toId]);
-        // await pool.query('INSERT INTO transaction (sender_id, receiver_id, amount, date) VALUES ($1, $2, $3, $4);', [req.params.fromId, req.params.toId, amountValue, new Date()]);
+        await pool.query('UPDATE envelopes SET budget = $1 WHERE id = $2;', [newSenderBudget, senderId]);
+        await pool.query('UPDATE envelopes SET budget = $1 WHERE id = $2;', [newReceiverBudget, receiverId]);
+        await pool.query('INSERT INTO transaction (sender_id, receiver_id, amount, date) VALUES ($1, $2, $3, $4);', [senderId, receiverId, amountValue, new Date()]);
         res.status(201).json({success: true, message: `Transaction from envelope ${req.params.fromId} to envelope ${req.params.toId} with amount of ${amountValue} was successfully made`});
 
     } catch (error) {
