@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "6ea07d90-5088-44a6-be44-9d3a58aae746",
+		"name": "personal-budget",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33785380"
+	},
+	"item": [
+		{
+			"name": "Get all envelopes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/envelopes"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a specific envelope",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/envelopes/16"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new envelope",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Gift\",\r\n    \"budget\": 200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/envelopes/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a specific envelope by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/envelopes/14"
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer an amount from an envelope to other",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/envelopes/transfer/18/19"
+			},
+			"response": []
+		}
+	]
+}
