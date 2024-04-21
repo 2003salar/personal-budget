@@ -24,7 +24,7 @@ Before running the application, ensure you have Node.js and npm installed on you
 3. **Start the server:**
 
     ```bash
-    node server.js
+    npm start
     ```
 
     The server will start listening on port 3000 by default. You can access the API endpoints using a tool called Postman. 

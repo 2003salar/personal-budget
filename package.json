@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "newman run postman/personal-budget.postman_collection.json"
+    "test": "newman run postman/personal-budget.postman_collection.json",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
