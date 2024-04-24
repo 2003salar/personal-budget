@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../connectDB'); 
 
-router.use(express.urlencoded({extended: false}));
+router.use(express.urlencoded({extended: true}));
 router.use(express.json());
 
 // Middleware to handle and send requested envelope with its ID
